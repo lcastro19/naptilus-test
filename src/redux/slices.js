@@ -18,8 +18,7 @@ const listSlice = createSlice({
 
 const itemSlice = createSlice({
     name: 'item',
-    // initialState: [],
-    initialState: {},
+    initialState: [],
     reducers: {
         setItem: (state, action) => updateArray(state, action.payload, 'id')
     },

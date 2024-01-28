@@ -9,8 +9,8 @@ import { setItem } from "../redux/slices"
 export const Details = () => {
     const { id } = useParams()
     const dispatch = useDispatch();
-    const list = useSelector((state) => state.item);
-    const filterId = () => { return list?.filter(item => item.id === id)?.[0] }
+    const items = useSelector((state) => state.item);
+    const filterId = () => { return items?.filter(item => item.id === id)?.[0] }
 
     const fetchData = async () => {
         try {
@@ -33,8 +33,7 @@ export const Details = () => {
 
 
     return (
-        <div className="container" >
-
+        <div className="container">
             {filterId() && <div className="items-group" style={{ marginTop: '32px' }}>
                 <img src={filterId().image} alt="" />
                 <div className="card">
