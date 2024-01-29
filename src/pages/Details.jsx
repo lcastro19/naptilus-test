@@ -34,7 +34,7 @@ export const Details = () => {
 
     return (
         <div className="container">
-            {filterId() && <div className="items-group" style={{ marginTop: '32px' }}>
+            {filterId() && <div className="items-group" style={{ marginTop: '24px' }}>
                 <img src={filterId().image} alt="" />
                 <div className="card">
                     <h3>{`${filterId().first_name} ${filterId().last_name}`}</h3>

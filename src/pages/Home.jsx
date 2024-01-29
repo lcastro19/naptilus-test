@@ -11,7 +11,7 @@ export const Home = () => {
     let currentPage = Number(queryParams.get("page")) || 1
     const navigate = useNavigate()
     const [search, setSearch] = useState('')
-    const [keys] = useState(["first_name", "last_name", 'profession']);
+    const keys = ["first_name", "last_name", 'profession']
     const dispatch = useDispatch();
     const list = useSelector((state) => state.list);
     const paginatedList = () => { return list?.filter(item => item.current === currentPage)?.[0] }
@@ -22,7 +22,6 @@ export const Home = () => {
         queryParams.set("page", newPage);
         navigate({ search: queryParams.toString() });
         fetchData()
-        window.scrollTo(0, 0)
     }
     const fetchData = async () => {
         try {
@@ -73,22 +72,6 @@ export const Home = () => {
                 <span className="subtitle">There are more than 100k</span>
             </div>
 
-
-            {paginatedList() &&
-                <div className="pagination-btn">
-                    <button
-                        disabled={currentPage === 1}
-                        onClick={() => handlePageChange(currentPage - 1)}
-                    >
-                        Previous Page
-                    </button>
-                    <button onClick={() => handlePageChange(currentPage + 1)}>
-                        Next Page
-                    </button>
-                </div>
-            }
-
-
             <div className="items-group">
                 {filterList()?.map((item) => (
                     <div
@@ -97,7 +80,7 @@ export const Home = () => {
                         onClick={() => navigate(`/${item.id}`)}
                         style={{ cursor: 'pointer' }}
                     >
-                        <img src={item.image} />
+                        <img src={item.image} alt={item.first_name} />
                         <span className="title">{`${item.first_name} ${item.last_name}`}</span>
                         <span className="other" >{item.gender === 'M' ? 'Man' : 'Women'}</span>
                         <i className="other">{item.profession}</i>
@@ -105,6 +88,27 @@ export const Home = () => {
                 ))}
             </div>
 
-        </div>
+            {search.length > 0 && filterList()?.length === 0 &&
+                <h2 style={{ textAlign: 'center' }}>No results found</h2>
+            }
+
+            {paginatedList() && search.length === 0 &&
+                <div className="pagination-btn">
+                    <button
+                        disabled={currentPage === 1}
+                        onClick={() => handlePageChange(currentPage - 1)}
+                    >
+                        Previous Page
+                    </button>
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === 20}
+                    >
+                        Next Page
+                    </button>
+                </div>
+            }
+
+        </div >
     )
 }
